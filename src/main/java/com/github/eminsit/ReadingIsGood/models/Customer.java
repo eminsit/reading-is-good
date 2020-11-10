@@ -2,10 +2,7 @@ package com.github.eminsit.ReadingIsGood.models;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -14,7 +11,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Table(name = "CUSTOMERS")
 public class Customer {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;

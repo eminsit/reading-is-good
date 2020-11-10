@@ -34,6 +34,7 @@ CREATE TABLE CUSTOMERS (
 CREATE TABLE ORDERS (
                          id LONG AUTO_INCREMENT  PRIMARY KEY,
                          status INTEGER NOT NULL,
+                         customer_id LONG NOT NULL,
                          total_amount DOUBLE NOT NULL
 );
 

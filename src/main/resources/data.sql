@@ -14,9 +14,9 @@ INSERT INTO CUSTOMERS (name, email) VALUES
 
 
 
-INSERT INTO ORDERS (status, total_amount) VALUES
-(1, 32.32),
-(1, 343.3)
+INSERT INTO ORDERS (status, total_amount, customer_id) VALUES
+(1, 32.32,1),
+(1, 343.3,1)
 ;
 
 

@@ -14,7 +14,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "BOOKS")
 public class Book {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
 

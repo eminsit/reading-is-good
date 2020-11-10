@@ -15,10 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "ORDERS")
 public class Order {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Integer status;
     private Double totalAmount;
+    private Long customerId;
 
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "orderId", orphanRemoval=true)

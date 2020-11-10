@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface CustomerService {
     List<Customer> getAll();
-    void save(Customer customer);
+    Customer save(Customer customer);
+    Customer getOne(Long id);
 }

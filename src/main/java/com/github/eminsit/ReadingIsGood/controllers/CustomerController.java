@@ -4,10 +4,10 @@ import com.github.eminsit.ReadingIsGood.models.Customer;
 import com.github.eminsit.ReadingIsGood.services.CustomerService;
 import com.github.eminsit.ReadingIsGood.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,24 +19,18 @@ public class CustomerController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/customer")
-    Customer getCustomer() {
-        return new Customer(1l, "emin", "emin@emin.com");
+    @GetMapping("/customer/{customerId}")
+    Customer getCustomer(@RequestParam Long customerId) {
+        return new Customer(customerId, "emin", "emin@emin.com");
     }
 
     @GetMapping("/customers")
-    List<Customer> getCustomers() {
-        orderService.getOne();
-        return customerService.getAll();
+    ResponseEntity<List<Customer>> getCustomers() {
+        return new ResponseEntity<>(customerService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/customer-save")
-    void save() {
-        Customer c = new Customer();
-        c.setEmail("email");
-        c.setName("Emin");
-        customerService.save(c);
+    @PostMapping("/customer")
+    ResponseEntity<Customer> save(@RequestBody Customer customer) {
+        return new ResponseEntity<>(customerService.save(customer), HttpStatus.OK);
     }
-
-
 }

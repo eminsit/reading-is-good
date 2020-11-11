@@ -19,7 +19,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book getOne(Long id) {
-        return repo.findById(id).orElse(null);
+        return repo.findBookById(id);
     }
 
     Logger logger = LoggerFactory.getLogger(BookService.class);
@@ -27,10 +27,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book updateCount(Long bookId, Integer count) {
         var book = this.getOne(bookId);
-        logger.info("updateCount() presentBook" + book.toString());
         if (book == null) {
             throw new BookNotFoundException(bookId);
         }
+        logger.info("updateCount() presentBook" + book.toString());
+
         book.setCount(count);
 
         logger.info("updateCount() updatedBook" + book.toString());

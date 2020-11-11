@@ -1,5 +1,6 @@
 package com.github.eminsit.ReadingIsGood.services;
 
+import com.github.eminsit.ReadingIsGood.exceptions.CustomerNotFoundException;
 import com.github.eminsit.ReadingIsGood.models.Customer;
 import com.github.eminsit.ReadingIsGood.repositories.CustomerRepository;
 import org.slf4j.Logger;
@@ -24,12 +25,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getOne(Long id) {
-        logger.info("getOne customerID: ");
-        return repo.findById(id).orElse(null);
+        logger.info("getOne customerID: " + id);
+        var customer = repo.findCustomerById(id);
+        if (customer == null)
+            throw new CustomerNotFoundException(id);
+
+        return customer;
     }
 
     @Override
     public Customer save(Customer customer) {
+        logger.info("saveCustomer customerID: " + customer);
         return repo.save(customer);
     }
 }

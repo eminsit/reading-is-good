@@ -4,6 +4,7 @@ import com.github.eminsit.ReadingIsGood.dto.OrderItemView;
 import com.github.eminsit.ReadingIsGood.dto.OrderView;
 import com.github.eminsit.ReadingIsGood.exceptions.BookNotFoundException;
 import com.github.eminsit.ReadingIsGood.exceptions.CustomerNotFoundException;
+import com.github.eminsit.ReadingIsGood.exceptions.OrderNotFoundException;
 import com.github.eminsit.ReadingIsGood.exceptions.StockInsufficientException;
 import com.github.eminsit.ReadingIsGood.models.Book;
 import com.github.eminsit.ReadingIsGood.models.Order;
@@ -48,11 +49,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOne() {
-        Long id = 1l;
-        var order = Optional.of(repo.findById(id)).orElse(null);
+    public Order getOne(Long id) {
+        var order = Optional.of(repo.findById(id)).orElseThrow(() -> new OrderNotFoundException(id));
 
-        return order.orElse(null);
+        return order.orElseThrow(() -> new OrderNotFoundException(id));
     }
 
     @Override

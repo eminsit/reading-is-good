@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -20,8 +21,8 @@ public class CustomerController {
     private OrderService orderService;
 
     @GetMapping("/customer/{customerId}")
-    Customer getCustomer(@RequestParam Long customerId) {
-        return new Customer(customerId, "emin", "emin@emin.com");
+    ResponseEntity<Customer> getCustomer(@PathVariable Long customerId) {
+        return new ResponseEntity<>(customerService.getOne(customerId), HttpStatus.OK);
     }
 
     @GetMapping("/customers")
@@ -30,7 +31,7 @@ public class CustomerController {
     }
 
     @PostMapping("/customer")
-    ResponseEntity<Customer> save(@RequestBody Customer customer) {
+    ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
         return new ResponseEntity<>(customerService.save(customer), HttpStatus.OK);
     }
 }
